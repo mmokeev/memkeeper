@@ -1,0 +1,31 @@
+server:
+  address: 0.0.0.0
+  port: {PORT}
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    servlet:
+      path: /api
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: {SPRING_DATASOURCE_URL}
+    username: {SPRING_DATASOURCE_USERNAME}
+    password: {SPRING_DATASOURCE_PASSWORD}
+    hikari:
+      pool-name: main_db_pool
+      maximum-pool-size: 10
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+  liquibase:
+    enabled: true
+    drop-first: true
+    change_log: classpath:liquibase/changelog-master.xml
+  jackson:
+    date-format: yyyy-MM-dd
+
