@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.memkeeper.entities.SimpleEntity;
+import ru.memkeeper.helpers.Examples;
 import ru.memkeeper.json.SimpleJson;
 import ru.memkeeper.services.SimpleService;
 
@@ -28,23 +28,23 @@ public class SimpleController {
     @PostMapping("/add/{userId}")
     @ApiOperation("Создать простую ентитю")
     public Long createEntity(
-            @ApiParam(value = "Идентификатор юзера", required = true) @PathVariable("userId") String userId,
-            @ApiParam(value = "Title") @RequestParam(value = "title", required = false) String title) {
+            @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID) @PathVariable("userId") String userId,
+            @ApiParam(value = "Title", example = "Что-то") @RequestParam(value = "title", required = false) String title) {
         return simpleService.createSimple(userId, title);
     }
 
     @GetMapping("/{userId}/{id}")
     @ApiOperation("Получить простую ентитю по id")
     public SimpleJson getJson(
-            @ApiParam(value = "Идентификатор юзера", required = true) @PathVariable("userId") String userId,
-            @ApiParam(value = "Id", required = true) @PathVariable(value = "id") Long id) {
+            @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID) @PathVariable("userId") String userId,
+            @ApiParam(value = "Id", required = true, example = "1") @PathVariable(value = "id") Long id) {
         return simpleService.findSimple(userId, id);
     }
 
     @GetMapping("/{userId}")
     @ApiOperation("Получить список id")
     public List<Long> findAllIdsByUserId(
-            @ApiParam(value = "Идентификатор юзера", required = true) @PathVariable("userId") String userId) {
+            @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID) @PathVariable("userId") String userId) {
         return simpleService.findAllId(userId);
     }
 
