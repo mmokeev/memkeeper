@@ -13,6 +13,6 @@ public interface SimpleRepository extends JpaRepository<SimpleEntity, Long> {
 
     SimpleEntity findByIdAndUserId(Long id, String userId);
 
-    @Query("select s from SimpleEntity s where s.userId = :userId")
+    @Query("select s.id from SimpleEntity s where s.userId = :userId")
     List<Long> findIdsByUserId(@Param("userId") String userId);
 }
