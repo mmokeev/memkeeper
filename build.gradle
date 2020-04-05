@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -33,6 +35,7 @@ dependencies {
     // db
     implementation('org.postgresql:postgresql')
     implementation('org.liquibase:liquibase-core:3.8.8')
+    implementation('com.h2database:h2:1.4.200')
 
     implementation('org.immutables:value:2.8.2')
     annotationProcessor('org.immutables:value:2.8.2')
@@ -43,6 +46,19 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+}
+
+task bootRunLocal(type: BootRun) {
+    dependsOn(classes)
+
+    doFirst() {
+        main = bootJar.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+    }
+    systemProperty("spring.profiles.active", "local")
+
+    group = "Application"
+    description = "Runs this project as a Spring Boot application with local properties"
 }
 
 test {
