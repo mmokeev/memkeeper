@@ -28,4 +28,3 @@ spring:
     change_log: classpath:liquibase/changelog-master.xml
   jackson:
     date-format: yyyy-MM-dd
-
