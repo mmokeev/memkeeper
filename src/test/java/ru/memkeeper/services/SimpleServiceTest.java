@@ -1,17 +1,14 @@
 package ru.memkeeper.services;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.memkeeper.MKTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.memkeeper.entities.SimpleEntity;
 import ru.memkeeper.repositories.SimpleRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@MKTest
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class SimpleServiceTest {
 
     @Autowired
