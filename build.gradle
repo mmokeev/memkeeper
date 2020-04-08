@@ -63,4 +63,5 @@ task bootRunLocal(type: BootRun) {
 
 test {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active", "test")
 }
