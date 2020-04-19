@@ -32,7 +32,7 @@ idea {
 
 dependencies {
     // zk
-    compile "org.zkoss.zkspringboot:zkspringboot-starter:1.0.4"
+    implementation "org.zkoss.zkspringboot:zkspringboot-starter:1.0.4"
 
     // spring boot
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
