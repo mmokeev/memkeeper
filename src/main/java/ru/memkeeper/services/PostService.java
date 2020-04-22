@@ -12,4 +12,8 @@ public class PostService {
     public Post findById(long id) {
         throw new UnsupportedOperationException();
     }
+
+    public Post deleteById(long id) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -12,7 +12,15 @@ public class TabService {
         throw new UnsupportedOperationException();
     }
 
-    public void addPost(Post post) {
+    public Tab deleteById(long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean addPost(Post post) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean deletePost(Post post) {
         throw new UnsupportedOperationException();
     }
 }
