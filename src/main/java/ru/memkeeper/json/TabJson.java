@@ -1,5 +1,6 @@
 package ru.memkeeper.json;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModel;
@@ -8,21 +9,22 @@ import org.immutables.value.Value;
 
 @ApiModel
 @Value.Immutable
-@JsonDeserialize(builder = SimpleJson.Builder.class)
-public interface SimpleJson {
+@JsonDeserialize(builder = TabJson.Builder.class)
+public interface TabJson {
 
-    @ApiModelProperty("Идентификатор простоты")
+    @ApiModelProperty("Идентификатор")
     @JsonProperty
     Long id();
 
-    @ApiModelProperty("Идентификатор юзера")
+    @ApiModelProperty("Название вкладки")
     @JsonProperty
-    String userId();
+    String name();
 
-    @ApiModelProperty("Какая-то строка")
+    @ApiModelProperty("Активная ли вкладка")
     @JsonProperty
-    String title();
+    Boolean isActive();
 
-    class Builder extends ImmutableSimpleJson.Builder {
+    class Builder extends ImmutableTabJson.Builder {
     }
+
 }
