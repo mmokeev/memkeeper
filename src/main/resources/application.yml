@@ -7,7 +7,7 @@ spring:
     allow-bean-definition-overriding: true
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: false
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -20,9 +20,7 @@ spring:
       max-lifetime: 1800000
       connection-test-query: SELECT 1
   liquibase:
-    enabled: true
-    drop-first: true
-    change_log: classpath:liquibase/changelog-master.xml
+    enabled: false
   jackson:
     date-format: yyyy-MM-dd
 

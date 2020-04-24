@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.memkeeper.helpers.Converter;
 import ru.memkeeper.helpers.Examples;
-import ru.memkeeper.json.AddNoteJson;
-import ru.memkeeper.json.NoteJson;
-import ru.memkeeper.json.TabJson;
+import ru.memkeeper.data.AddNoteData;
+import ru.memkeeper.data.NoteData;
+import ru.memkeeper.data.TabData;
 import ru.memkeeper.services.MainPageService;
 import ru.memkeeper.services.NoteService;
 import ru.memkeeper.services.TabService;
@@ -37,59 +37,63 @@ public class MainPageServiceController {
 
     @GetMapping("/{userId}/getTabs")
     @ApiOperation("Получить вкладки для юзера")
-    public List<TabJson> getTabs(
+    public List<TabData> getTabs(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId) {
+            @PathVariable String userId) {
 
-        return tabService.getUserTabs(userId).stream().map(Converter::convertTabToJson).collect(Collectors.toList());
+        return tabService.getUserTabs(userId).stream()
+                .map(Converter::convertTabToTabData)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/{userId}/addTab")
     @ApiOperation("Добавить вкладку")
-    public TabJson addTab(
+    public TabData addTab(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId,
-            @ApiParam(value = "Название вкладки", required = true, example = "1")
-            @RequestParam("tabName") String tabName) {
+            @PathVariable String userId,
+            @ApiParam(value = "Название вкладки", required = true, example = Examples.LONG_ID)
+            @RequestParam String tabName) {
 
-        return Converter.convertTabToJson(tabService.createNewTabAndMarkAsActive(userId, tabName));
+        return Converter.convertTabToTabData(tabService.createNewTabAndMarkAsActive(userId, tabName));
     }
 
     @DeleteMapping("/{userId}/deleteTab")
     @ApiOperation("Удалить вкладку")
     public void deleteTab(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId,
-            @ApiParam(value = "Идентификатор вкладки", required = true, example = "1")
-            @RequestParam("tabName") Long tabId) {
+            @PathVariable String userId,
+            @ApiParam(value = "Идентификатор вкладки", required = true, example = Examples.LONG_ID)
+            @RequestParam Long tabId) {
 
         tabService.deleteTab(userId, tabId);
     }
 
     @GetMapping("/{userId}/getNotes")
     @ApiOperation("Получить заметки юзера по id пользователя и id вкладки")
-    public List<NoteJson> getNotes(
+    public List<NoteData> getNotes(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId,
-            @ApiParam(value = "Идентификатор вкладки", required = true, example = "1")
-            @RequestParam("tabId") Long tabId) {
+            @PathVariable String userId,
+            @ApiParam(value = "Идентификатор вкладки", required = true, example = Examples.LONG_ID)
+            @RequestParam Long tabId) {
 
-        return mainPageService.findNotes(userId, tabId).stream().map(Converter::convertNoteToJson).collect(Collectors.toList());
+        return mainPageService.findNotes(userId, tabId).stream()
+                .map(Converter::convertNoteToData)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/{userId}/addNote")
     @ApiOperation("Добавить заметку во вкладку")
-    public NoteJson addNote(
+    public NoteData addNote(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId,
-            @ApiParam(value = "Заметка", required = true, example = "1")
-            @RequestBody AddNoteJson noteJson) {
+            @PathVariable String userId,
+            @ApiParam(value = "Заметка на добавление", required = true)
+            @RequestBody AddNoteData addNoteData) {
 
-        return Converter.convertNoteToJson(noteService.addNewNote(
+        return Converter.convertNoteToData(noteService.addNewNote(
                 userId,
-                noteJson.tabId(),
-                noteJson.title(),
-                noteJson.text().orElse(null)
+                addNoteData.tabId(),
+                addNoteData.title(),
+                addNoteData.text().orElse(null)
         ));
     }
 
@@ -97,9 +101,9 @@ public class MainPageServiceController {
     @ApiOperation("Удалить заметку")
     public void deleteNote(
             @ApiParam(value = "Идентификатор юзера", required = true, example = Examples.USER_ID)
-            @PathVariable("userId") String userId,
-            @ApiParam(value = "Идентификатор заметку", required = true, example = "1")
-            @RequestParam("tabName") Long noteId) {
+            @PathVariable String userId,
+            @ApiParam(value = "Идентификатор заметки", required = true, example = Examples.LONG_ID)
+            @RequestParam Long noteId) {
 
         noteService.deleteNote(userId, noteId);
     }

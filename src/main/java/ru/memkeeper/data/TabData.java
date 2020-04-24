@@ -1,4 +1,4 @@
-package ru.memkeeper.json;
+package ru.memkeeper.data;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,8 +9,8 @@ import org.immutables.value.Value;
 
 @ApiModel
 @Value.Immutable
-@JsonDeserialize(builder = TabJson.Builder.class)
-public interface TabJson {
+@JsonDeserialize(builder = TabData.Builder.class)
+public interface TabData {
 
     @ApiModelProperty("Идентификатор")
     @JsonProperty
@@ -24,7 +24,7 @@ public interface TabJson {
     @JsonProperty
     Boolean isActive();
 
-    class Builder extends ImmutableTabJson.Builder {
+    class Builder extends ImmutableTabData.Builder {
     }
 
 }

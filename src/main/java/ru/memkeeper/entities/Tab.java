@@ -18,9 +18,6 @@ public class Tab {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -36,10 +33,6 @@ public class Tab {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public List<Note> getNotes() {

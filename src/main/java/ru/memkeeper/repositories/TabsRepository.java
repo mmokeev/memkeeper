@@ -26,7 +26,7 @@ public interface TabsRepository extends JpaRepository<Tab, Long> {
     @Transactional
     @Modifying
     @Query("delete from Tab t where t.id = :tabId and t.userId = :userId")
-    void deleteByUserIdAndNoteId(@Param("userId") String userId, @Param("tabId") Long tabId);
+    void deleteByUserIdAndTabId(@Param("userId") String userId, @Param("tabId") Long tabId);
 
     @Transactional
     @Modifying

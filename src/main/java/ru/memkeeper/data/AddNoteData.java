@@ -1,4 +1,4 @@
-package ru.memkeeper.json;
+package ru.memkeeper.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @ApiModel
 @Value.Immutable
-@JsonDeserialize(builder = AddNoteJson.Builder.class)
-public interface AddNoteJson {
+@JsonDeserialize(builder = AddNoteData.Builder.class)
+public interface AddNoteData {
 
     @ApiModelProperty("Id вкладки")
     @JsonProperty
@@ -25,6 +25,6 @@ public interface AddNoteJson {
     @JsonProperty
     Optional<String> text();
 
-    class Builder extends ImmutableAddNoteJson.Builder {
+    class Builder extends ImmutableAddNoteData.Builder {
     }
 }

@@ -9,5 +9,3 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
-  liquibase:
-    enabled: false
