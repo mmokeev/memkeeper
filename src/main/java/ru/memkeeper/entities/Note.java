@@ -17,7 +17,7 @@ public class Note {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
@@ -47,6 +47,10 @@ public class Note {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void steCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getTitle() {
