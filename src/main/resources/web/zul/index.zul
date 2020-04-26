@@ -1,5 +1,37 @@
 <zk>
-    <window title="memkeeper">
-        In progress...
+    <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+    <style src="~./css/note.css" />
+    <style src="~./css/tab.css" />
+    <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
+        <tabbox id="mytabs">
+            <tabs>
+                <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
+                    <tab label="@load(tab.name)"
+                         selected="@load(tab.active)"
+                         onClick="@command('markTabAsActive', tabIndex = tabStatus.index)"/>
+                </forEach>
+                <tab label="Add new" selected="false" sclass="new-tab"/>
+            </tabs>
+            <tabpanels>
+                <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
+                    <tabpanel>
+                        <button label="Add new note"
+                                onClick="@command('addNote', tabId = tab.id, tabName = tab.name)"/>
+                        <forEach items="@load(tab.notes)" var="note" varStatus="noteStatus">
+                            <div sclass="note">
+                                <vbox>
+                                    <label sclass="title">${note.title}</label>
+                                    <label sclass="created-at">${note.createdAt}</label>
+                                    <label>${note.text}</label>
+                                </vbox>
+                            </div>
+                        </forEach>
+                    </tabpanel>
+                </forEach>
+                <tabpanel>
+                    Add new tab
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
     </window>
 </zk>

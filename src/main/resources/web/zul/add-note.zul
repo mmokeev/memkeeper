@@ -1,0 +1,35 @@
+<zk>
+    <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+    <window mode="modal" sizable="true" closable="true"
+            viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')">
+        <label value="@init(('Добавление заметки во вкладку ' += vm.tabName))"/>
+        <grid>
+            <columns>
+                <column/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="Заголовок"/>
+                    <textbox value="@bind(vm.title) @save(vm.title, before = 'addNote')"
+                             constraint="no empty, before_end"/>
+                </row>
+                <row>
+                    <label value="Дата"/>
+                    <datebox format="yyyy/MM/dd hh:mm a"
+                             value="@bind(vm.createdAt) @save(vm.createdAt, before = 'addNote')"
+                             constraint="no empty, no future, before_end"/>
+                </row>
+                <row>
+                    <label value="Текст"/>
+                    <textbox rows="10"
+                             value="@bind(vm.text) @save(vm.text, before = 'addNote')"/>
+                </row>
+            </rows>
+        </grid>
+        <hbox>
+            <button label="Отмена" onClick="@command('cancel')"/>
+            <button label="Добавить" onClick="@command('addNote')"/>
+        </hbox>
+    </window>
+</zk>
