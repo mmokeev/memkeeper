@@ -5,11 +5,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.memkeeper.helpers.Converter;
-import ru.memkeeper.helpers.Examples;
 import ru.memkeeper.data.AddNoteData;
 import ru.memkeeper.data.NoteData;
 import ru.memkeeper.data.TabData;
+import ru.memkeeper.helpers.Converter;
+import ru.memkeeper.helpers.Examples;
 import ru.memkeeper.services.MainPageService;
 import ru.memkeeper.services.NoteService;
 import ru.memkeeper.services.TabService;
@@ -93,7 +93,8 @@ public class MainPageServiceController {
                 userId,
                 addNoteData.tabId(),
                 addNoteData.title(),
-                addNoteData.text().orElse(null)
+                addNoteData.text().orElse(null),
+                addNoteData.createdAt().orElse(null)
         ));
     }
 
