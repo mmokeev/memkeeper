@@ -6,9 +6,9 @@
         <tabbox id="mytabs">
             <tabs>
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
-                    <tab label="@load(tab.name)"
-                         selected="@load(tab.active)"
-                         onClick="@command('markTabAsActive', tabIndex = tabStatus.index)"/>
+                    <tab label="@load(tab.name())"
+                         selected="@load(tab.isActive())"
+                         onClick="@command('selectTab', tabIndex = tabStatus.index)"/>
                 </forEach>
                 <tab label="Add new" selected="false" sclass="new-tab"/>
             </tabs>
@@ -16,16 +16,18 @@
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
                     <tabpanel>
                         <button label="Add new note"
-                                onClick="@command('addNote', tabId = tab.id, tabName = tab.name)"/>
-                        <forEach items="@load(tab.notes)" var="note" varStatus="noteStatus">
-                            <div sclass="note">
-                                <vbox>
-                                    <label sclass="title">${note.title}</label>
-                                    <label sclass="created-at">${note.createdAt}</label>
-                                    <label>${note.text}</label>
-                                </vbox>
-                            </div>
-                        </forEach>
+                                onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
+                        <if test="@load(tab.isActive())">
+                            <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
+                                <div sclass="note">
+                                    <vbox>
+                                        <label sclass="title">${note.title()}</label>
+                                        <label sclass="created-at">${note.createdAt()}</label>
+                                        <label sclass="text">${note.text().orElse("")}</label>
+                                    </vbox>
+                                </div>
+                            </forEach>
+                        </if>
                     </tabpanel>
                 </forEach>
                 <tabpanel>

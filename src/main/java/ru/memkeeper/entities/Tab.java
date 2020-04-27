@@ -24,7 +24,7 @@ public class Tab {
     @Column(name = "is_active")
     private Boolean isActive = false;
 
-    @OneToMany(mappedBy = "tab")
+    @OneToMany(mappedBy = "tab", fetch = FetchType.EAGER)
     private List<Note> notes = Collections.emptyList();
 
     public String getName() {
