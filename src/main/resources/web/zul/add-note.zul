@@ -2,7 +2,7 @@
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
     <window mode="modal" sizable="true" closable="true"
             viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')">
-        <label value="@init(('Добавление заметки во вкладку ' += vm.tabName))"/>
+        <label value="@init(('Добавление заметки во вкладку &quot;' += vm.tabName += '&quot;'))"/>
         <grid>
             <columns>
                 <column/>
