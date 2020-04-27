@@ -49,7 +49,7 @@ public class Note {
         return createdAt;
     }
 
-    public void steCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

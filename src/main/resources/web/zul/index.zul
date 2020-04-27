@@ -10,28 +10,47 @@
                          selected="@load(tab.isActive())"
                          onClick="@command('selectTab', tabIndex = tabStatus.index)"/>
                 </forEach>
-                <tab label="Add new" selected="false" sclass="new-tab"/>
+                <tab label="Добавить" selected="false" sclass="new-tab"/>
             </tabs>
             <tabpanels>
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
                     <tabpanel>
-                        <button label="Add new note"
+                        <button label="Добавить заметку"
                                 onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
+                        <button label="Удалить вкладку"
+                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
                         <if test="@load(tab.isActive())">
                             <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
                                 <div sclass="note">
-                                    <vbox>
-                                        <label sclass="title">${note.title()}</label>
-                                        <label sclass="created-at">${note.createdAt()}</label>
-                                        <label sclass="text">${note.text().orElse("")}</label>
-                                    </vbox>
+                                    <hbox>
+                                        <vbox>
+                                            <label sclass="title">${note.title()}</label>
+                                            <label sclass="created-at">${note.createdAt()}</label>
+                                            <div sclass="text">${note.text().orElse("")}</div>
+                                        </vbox>
+                                        <button label="Удалить"
+                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
+                                    </hbox>
                                 </div>
                             </forEach>
                         </if>
                     </tabpanel>
                 </forEach>
                 <tabpanel>
-                    Add new tab
+                    <grid>
+                        <columns>
+                            <column/>
+                            <column/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Название вкладки"/>
+                                <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
+                                         constraint="no empty, before_end"/>
+                            </row>
+                        </rows>
+                    </grid>
+                    <button label="Добавить" onClick="@command('addTab')"/>
                 </tabpanel>
             </tabpanels>
         </tabbox>

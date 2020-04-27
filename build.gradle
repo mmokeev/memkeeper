@@ -20,9 +20,7 @@ repositories {
     maven {
         url "https://mavensync.zkoss.org/maven2"
     }
-    maven { url "http://repo.spring.io/release" }
     maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }
-    maven { url "http://jasperreports.sourceforge.net/maven2/" }
     mavenCentral()
 }
 
@@ -77,7 +75,6 @@ task bootRunLocal(type: BootRun) {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
     }
-    systemProperty("spring.profiles.active", "local")
 
     group = "Application"
     description = "Runs this project as a Spring Boot application with local properties"
@@ -85,5 +82,4 @@ task bootRunLocal(type: BootRun) {
 
 test {
     useJUnitPlatform()
-    systemProperty("spring.profiles.active", "test")
 }

@@ -1,7 +1,6 @@
 package ru.memkeeper.entities;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 

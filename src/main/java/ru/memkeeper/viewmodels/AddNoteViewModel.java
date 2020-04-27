@@ -5,11 +5,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Events;
 import ru.memkeeper.data.AddNoteData;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Optional;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class AddNoteViewModel {
 
@@ -18,7 +14,7 @@ public class AddNoteViewModel {
 
     private String title;
     private Date createdAt;
-    private Optional<String> text;
+    private String text;
 
     @Init
     public void init(@ExecutionArgParam("tabId") Long tabId,
@@ -28,7 +24,7 @@ public class AddNoteViewModel {
 
         title = "";
         createdAt = new Date();
-        text = Optional.empty();
+        text = "";
     }
 
     @Command
@@ -45,6 +41,7 @@ public class AddNoteViewModel {
         return new AddNoteData.Builder()
                 .tabId(tabId)
                 .title(title)
+                .createdAt(createdAt)
                 .text(text)
                 .build();
     }
@@ -70,10 +67,10 @@ public class AddNoteViewModel {
     }
 
     public String getText() {
-        return text.orElse("");
+        return text;
     }
 
     public void setText(String text) {
-        this.text = isNullOrEmpty(text) ? Optional.empty() : Optional.of(text);
+        this.text = text;
     }
 }
