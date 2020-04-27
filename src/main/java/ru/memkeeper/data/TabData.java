@@ -26,5 +26,4 @@ public interface TabData {
 
     class Builder extends ImmutableTabData.Builder {
     }
-
 }

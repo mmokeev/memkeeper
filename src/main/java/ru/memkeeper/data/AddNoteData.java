@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.immutables.value.Value;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @ApiModel
@@ -13,17 +14,21 @@ import java.util.Optional;
 @JsonDeserialize(builder = AddNoteData.Builder.class)
 public interface AddNoteData {
 
-    @ApiModelProperty("Id вкладки")
+    @ApiModelProperty(value = "Id вкладки", required = true)
     @JsonProperty
     Long tabId();
 
-    @ApiModelProperty("Название заметки")
+    @ApiModelProperty(value = "Название заметки", required = true)
     @JsonProperty
     String title();
 
     @ApiModelProperty("Описание поста (опционально)")
     @JsonProperty
     Optional<String> text();
+
+    @ApiModelProperty("Дата создания (опционально)")
+    @JsonProperty
+    Optional<LocalDateTime> createdAt();
 
     class Builder extends ImmutableAddNoteData.Builder {
     }
