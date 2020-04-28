@@ -3,6 +3,7 @@
     <style src="~./css/note.css" />
     <style src="~./css/tab.css" />
     <style src="~./css/separators.css" />
+    <style src="~./css/buttons.css" />
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>
@@ -19,7 +20,8 @@
                         <button label="Добавить заметку"
                                 onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
                         <button label="Удалить вкладку"
-                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
+                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"
+                                sclass="delete-button"/>
                         <separator bar="true" sclass="separator"/>
                         <if test="@load(tab.isActive())">
                             <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
@@ -32,7 +34,8 @@
                                         </vbox>
                                         <space vflex="1" bar="true" sclass="space"/>
                                         <button label="Удалить"
-                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
+                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"
+                                                sclass="delete-button"/>
                                     </hbox>
                                 </div>
                             </forEach>
