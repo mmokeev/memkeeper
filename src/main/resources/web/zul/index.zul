@@ -1,5 +1,58 @@
 <zk>
-    <window title="memkeeper">
-        In progress...
+    <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+    <style src="~./css/note.css" />
+    <style src="~./css/tab.css" />
+    <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
+        <tabbox id="mytabs">
+            <tabs>
+                <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
+                    <tab label="@load(tab.name())"
+                         selected="@load(tab.isActive())"
+                         onClick="@command('selectTab', tabIndex = tabStatus.index)"/>
+                </forEach>
+                <tab label="Добавить" selected="false" sclass="new-tab"/>
+            </tabs>
+            <tabpanels>
+                <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
+                    <tabpanel>
+                        <button label="Добавить заметку"
+                                onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
+                        <button label="Удалить вкладку"
+                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
+                        <if test="@load(tab.isActive())">
+                            <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
+                                <div sclass="note">
+                                    <hbox>
+                                        <vbox>
+                                            <label sclass="title">${note.title()}</label>
+                                            <label sclass="created-at">${note.createdAt()}</label>
+                                            <div sclass="text">${note.text().orElse("")}</div>
+                                        </vbox>
+                                        <button label="Удалить"
+                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
+                                    </hbox>
+                                </div>
+                            </forEach>
+                        </if>
+                    </tabpanel>
+                </forEach>
+                <tabpanel>
+                    <grid>
+                        <columns>
+                            <column/>
+                            <column/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Название вкладки"/>
+                                <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
+                                         constraint="no empty, before_end"/>
+                            </row>
+                        </rows>
+                    </grid>
+                    <button label="Добавить" onClick="@command('addTab')"/>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
     </window>
 </zk>

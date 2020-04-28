@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.immutables.value.Value;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @ApiModel
@@ -24,7 +24,7 @@ public interface NoteData {
 
     @ApiModelProperty("Время создания поста")
     @JsonProperty
-    LocalDateTime createdAt();
+    Date createdAt();
 
     @ApiModelProperty("Описание поста (опционально)")
     @JsonProperty

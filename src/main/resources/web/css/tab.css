@@ -1,0 +1,7 @@
+.new-tab .z-tab-text {
+    color: #d0e5e3;
+}
+
+.new-tab .z-tab-text:hover, .new-tab.z-tab-selected .z-tab-text {
+    color: #a1a8b3;
+}

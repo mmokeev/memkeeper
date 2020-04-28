@@ -7,7 +7,7 @@ import ru.memkeeper.repositories.NotesRepository;
 import ru.memkeeper.services.internal.TabComponent;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Service
 public class NoteService {
@@ -21,14 +21,14 @@ public class NoteService {
     }
 
     @Transactional
-    public Note addNewNote(String userId, Long tabId, String title, String text, LocalDateTime createdAt) {
+    public Note addNewNote(String userId, Long tabId, String title, String text, Date createdAt) {
         Note note = new Note();
         note.setUserId(userId);
         note.setTitle(title);
         note.setText(text);
         note.setTab(tabComponent.findTab(userId, tabId));
         if (createdAt != null) {
-            note.steCreatedAt(createdAt);
+            note.setCreatedAt(createdAt);
         }
 
         return notesRepository.save(note);

@@ -1,7 +1,7 @@
 package ru.memkeeper.entities;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @Entity
@@ -18,7 +18,7 @@ public class Note {
     private String userId;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Date createdAt = new Date();
 
     @ManyToOne
     private Tab tab;
@@ -45,11 +45,11 @@ public class Note {
         this.userId = userId;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void steCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
