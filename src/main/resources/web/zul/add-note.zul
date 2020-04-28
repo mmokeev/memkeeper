@@ -1,4 +1,5 @@
 <zk>
+    <style src="~./css/buttons.css"/>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
     <window mode="modal" sizable="true" closable="true"
             viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')">
@@ -30,7 +31,7 @@
         </grid>
         <hbox>
             <button label="Отмена" onClick="@command('cancel')"/>
-            <button label="Добавить" onClick="@command('addNote')"/>
+            <button label="Добавить" onClick="@command('addNote')" sclass="add-button"/>
         </hbox>
     </window>
 </zk>

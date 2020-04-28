@@ -42,6 +42,7 @@ public class MemkeeperViewModel {
     private List<NoteData> notes;
 
     private String newTabName;
+    private boolean newTabSelected;
 
     @Init
     public void init() {
@@ -52,7 +53,10 @@ public class MemkeeperViewModel {
         IntStream.range(0, tabs.size())
                 .filter(tabIndex -> tabs.get(tabIndex).isActive())
                 .findFirst()
-                .ifPresentOrElse(this::selectTab, () -> notes = Collections.emptyList());
+                .ifPresentOrElse(this::selectTab, () -> {
+                    newTabSelected = true;
+                    notes = Collections.emptyList();
+                });
     }
 
     public String formatDate(Date date) {
@@ -60,8 +64,9 @@ public class MemkeeperViewModel {
     }
 
     @Command
-    @NotifyChange({"tabs", "notes"})
+    @NotifyChange({"tabs", "notes", "newTabSelected"})
     public void selectTab(@BindingParam("tabIndex") int tabIndex) {
+        newTabSelected = false;
         loadNotesByTabId(tabs.get(tabIndex).id());
         tabs = mainController.getTabs(TEMP_USER_ID);
         //TODO: как-то обработать ситуацию, когда вкладка почему-то изменилась
@@ -69,6 +74,12 @@ public class MemkeeperViewModel {
 
     private void loadNotesByTabId(long tabId) {
         notes = mainController.getNotes(TEMP_USER_ID, tabId);
+    }
+
+    @Command
+    @NotifyChange("newTabSelected")
+    public void selectNewTab() {
+        newTabSelected = true;
     }
 
     @Command
@@ -139,5 +150,9 @@ public class MemkeeperViewModel {
 
     public void setNewTabName(String newTabName) {
         this.newTabName = newTabName;
+    }
+
+    public boolean isNewTabSelected() {
+        return newTabSelected;
     }
 }
