@@ -12,6 +12,7 @@
                 <row>
                     <label value="Заголовок"/>
                     <textbox value="@bind(vm.title) @save(vm.title, before = 'addNote')"
+                             maxlength="255"
                              constraint="no empty, before_end"/>
                 </row>
                 <row>

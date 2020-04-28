@@ -6,6 +6,8 @@
 
 .title {
     font-size: large;
+    /* TODO: изменить на что-то другое, ибо это свойство не работает в IE и Safari */
+    overflow-wrap: anywhere;
 }
 
 .created-at {
