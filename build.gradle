@@ -20,7 +20,9 @@ repositories {
     maven {
         url "https://mavensync.zkoss.org/maven2"
     }
-    maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }
+    maven {
+        url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"
+    }
     mavenCentral()
 }
 
