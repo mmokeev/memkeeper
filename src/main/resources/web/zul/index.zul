@@ -14,19 +14,19 @@
             </tabs>
             <tabpanels>
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
-                    <tabpanel>
+                    <tabpanel hflex="1">
                         <button label="Добавить заметку"
                                 onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
                         <button label="Удалить вкладку"
                                 onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
                         <if test="@load(tab.isActive())">
                             <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
-                                <div sclass="note">
-                                    <hbox>
-                                        <vbox>
+                                <div sclass="note" hflex="1">
+                                    <hbox hflex="1">
+                                        <vbox hflex="1">
                                             <label sclass="title">${note.title()}</label>
                                             <label sclass="created-at">${note.createdAt()}</label>
-                                            <div sclass="text">${note.text().orElse("")}</div>
+                                            <label sclass="text">${note.text().orElse("")}</label>
                                         </vbox>
                                         <button label="Удалить"
                                                 onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
