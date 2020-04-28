@@ -13,5 +13,6 @@
 }
 
 .text {
-
+    /* TODO: изменить на что-то другое, ибо это свойство не работает в IE и Safari */
+    overflow-wrap: anywhere;
 }
