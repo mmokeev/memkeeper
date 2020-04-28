@@ -1,5 +1,6 @@
 <zk>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+    <style src="~./css/add-tab.css"/>
     <style src="~./css/note.css"/>
     <style src="~./css/tab.css"/>
     <style src="~./css/separators.css"/>
@@ -44,19 +45,11 @@
                 </forEach>
                 <tabpanel>
                     <if test="@load(vm.newTabSelected)">
-                        <grid>
-                            <columns>
-                                <column/>
-                                <column/>
-                            </columns>
-                            <rows>
-                                <row>
-                                    <label value="Название вкладки"/>
-                                    <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
-                                             constraint="no empty, before_end"/>
-                                </row>
-                            </rows>
-                        </grid>
+                        <hbox sclass="add-tab-body" align="center">
+                            <label value="Название вкладки" sclass="add-tab-label"/>
+                            <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
+                                     constraint="no empty, before_end"/>
+                        </hbox>
                         <button label="Добавить"
                                 onClick="@command('addTab')"
                                 sclass="add-button"/>

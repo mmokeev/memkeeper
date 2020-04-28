@@ -1,0 +1,16 @@
+.add-note-header {
+    font-size: 20px;
+}
+
+.add-note-body {
+    margin: 20px 0 20px 0;
+}
+
+.add-note-text {
+    resize: vertical;
+}
+
+.add-note-window {
+    min-width: 230px;
+    max-width: 700px;
+}
