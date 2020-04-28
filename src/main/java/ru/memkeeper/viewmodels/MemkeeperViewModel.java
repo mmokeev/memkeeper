@@ -63,7 +63,8 @@ public class MemkeeperViewModel {
     public void deleteTab(@BindingParam("tabIndex") int tabIndex) {
         TabData tab = tabs.get(tabIndex);
         Messagebox.show("Вы уверены, что хотите удалить вкладку \"" + tab.name() + "\"?", "Внимание!",
-                Messagebox.OK | Messagebox.NO, Messagebox.EXCLAMATION,
+                new Messagebox.Button[]{Messagebox.Button.OK, Messagebox.Button.NO},
+                new String[] {"Да", "Нет"}, Messagebox.EXCLAMATION, null,
                 event -> {
                     if (Messagebox.ON_OK.equals(event.getName())) {
                         mainController.deleteTab(TEMP_USER_ID, tab.id());
