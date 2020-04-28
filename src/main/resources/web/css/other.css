@@ -1,0 +1,6 @@
+/* Убирает эффект :hover с grid-разметки. Подробнее:
+ * https://forum.zkoss.org/question/59057/remove-the-hover-effect-from-the-grid-component/?answer=97406#post-id-97406
+ */
+.z-row-content,.z-row-inner,.z-rows,.z-row,.z-grid-odd,.z-grid-body,.z-grid-header,.z-cell {
+    background: transparent !important; border: none !important;
+}

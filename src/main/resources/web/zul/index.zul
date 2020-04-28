@@ -6,6 +6,7 @@
     <style src="~./css/note.css"/>
     <style src="~./css/buttons.css"/>
     <style src="~./css/separators.css"/>
+    <style src="~./css/other.css"/>
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>

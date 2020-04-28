@@ -7,7 +7,7 @@
                sclass="add-note-header"/>
         <grid sclass="add-note-body">
             <columns>
-                <column width="95px"/>
+                <column width="95px" align="right"/>
                 <column hflex="1"/>
             </columns>
             <rows>
@@ -20,13 +20,13 @@
                 </row>
                 <row>
                     <label value="Дата"/>
-                    <datebox format="yyyy/MM/dd hh:mm a"
+                    <datebox format="yyyy/MM/dd HH:mm"
                              value="@bind(vm.createdAt) @save(vm.createdAt, before = 'addNote')"
                              constraint="no empty, no future, before_end"/>
                 </row>
                 <row>
                     <label value="Текст"/>
-                    <textbox rows="15"
+                    <textbox rows="10"
                              width="99%"
                              value="@bind(vm.text) @save(vm.text, before = 'addNote')"
                              sclass="add-note-text"/>
