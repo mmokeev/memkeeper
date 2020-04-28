@@ -2,7 +2,7 @@
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
     <style src="~./css/note.css" />
     <style src="~./css/tab.css" />
-    <style src="~./css/separator.css" />
+    <style src="~./css/separators.css" />
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>
@@ -30,6 +30,7 @@
                                             <label sclass="created-at">${vm.formatDate(note.createdAt())}</label>
                                             <label sclass="text">${note.text().orElse("")}</label>
                                         </vbox>
+                                        <space vflex="1" bar="true" sclass="space"/>
                                         <button label="Удалить"
                                                 onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
                                     </hbox>
