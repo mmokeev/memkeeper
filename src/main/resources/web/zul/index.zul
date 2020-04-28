@@ -2,6 +2,7 @@
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
     <style src="~./css/note.css" />
     <style src="~./css/tab.css" />
+    <style src="~./css/separator.css" />
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>
@@ -19,6 +20,7 @@
                                 onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
                         <button label="Удалить вкладку"
                                 onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
+                        <separator bar="true" sclass="separator"/>
                         <if test="@load(tab.isActive())">
                             <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
                                 <div sclass="note" hflex="1">
