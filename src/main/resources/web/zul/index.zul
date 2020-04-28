@@ -1,9 +1,9 @@
 <zk>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
-    <style src="~./css/note.css" />
-    <style src="~./css/tab.css" />
-    <style src="~./css/separators.css" />
-    <style src="~./css/buttons.css" />
+    <style src="~./css/note.css"/>
+    <style src="~./css/tab.css"/>
+    <style src="~./css/separators.css"/>
+    <style src="~./css/buttons.css"/>
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>

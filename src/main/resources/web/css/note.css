@@ -1,17 +1,21 @@
 .note {
     margin-top: 10px;
-    padding: 5px;
     border-left: solid darkgray;
+    padding: 5px 5px 5px 10px;
+}
+
+.note:hover {
+    background-color: #f7f6fb;
 }
 
 .title {
-    font-size: large;
+    font-size: 25px;
     /* TODO: изменить на что-то другое, ибо это свойство не работает в IE и Safari */
     overflow-wrap: anywhere;
 }
 
 .created-at {
-
+    color: #bdbdbd;
 }
 
 .text {
