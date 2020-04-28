@@ -20,6 +20,9 @@ import java.util.stream.IntStream;
 public class MemkeeperViewModel {
 
     private static final String TEMP_USER_ID = "temp user id";
+    private static final String DELETE_TAB_WARNING_MESSAGE_PATTERN =
+            "Вы уверены, что хотите удалить вкладку \"%s\"? " +
+            "Вместе с вкладкой будут удалены все ее заметки.";
 
     @WireVariable
     private TabService tabService;
@@ -62,7 +65,7 @@ public class MemkeeperViewModel {
     @Command
     public void deleteTab(@BindingParam("tabIndex") int tabIndex) {
         TabData tab = tabs.get(tabIndex);
-        Messagebox.show("Вы уверены, что хотите удалить вкладку \"" + tab.name() + "\"?", "Внимание!",
+        Messagebox.show(String.format(DELETE_TAB_WARNING_MESSAGE_PATTERN, tab.name()), "Внимание!",
                 new Messagebox.Button[]{Messagebox.Button.OK, Messagebox.Button.NO},
                 new String[] {"Да", "Нет"}, Messagebox.EXCLAMATION, null,
                 event -> {
