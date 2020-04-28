@@ -1,6 +1,4 @@
 <zk>
-    <style src="~./css/add-note.css"/>
-    <style src="~./css/buttons.css"/>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
     <window mode="modal" closable="true"
             viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')"
