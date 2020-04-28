@@ -14,7 +14,11 @@ import ru.memkeeper.services.MainPageService;
 import ru.memkeeper.services.NoteService;
 import ru.memkeeper.services.TabService;
 
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class MemkeeperViewModel {
@@ -23,6 +27,7 @@ public class MemkeeperViewModel {
     private static final String DELETE_TAB_WARNING_MESSAGE_PATTERN =
             "Вы уверены, что хотите удалить вкладку \"%s\"? " +
             "Вместе с вкладкой будут удалены все ее заметки.";
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     @WireVariable
     private TabService tabService;
@@ -48,6 +53,10 @@ public class MemkeeperViewModel {
                 .filter(tabIndex -> tabs.get(tabIndex).isActive())
                 .findFirst()
                 .ifPresentOrElse(this::selectTab, () -> notes = Collections.emptyList());
+    }
+
+    public String formatDate(Date date) {
+        return dateFormat.format(date);
     }
 
     @Command

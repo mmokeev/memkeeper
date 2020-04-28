@@ -27,7 +27,7 @@
                                     <hbox hflex="1">
                                         <vbox hflex="1">
                                             <label sclass="title">${note.title()}</label>
-                                            <label sclass="created-at">${note.createdAt()}</label>
+                                            <label sclass="created-at">${vm.formatDate(note.createdAt())}</label>
                                             <label sclass="text">${note.text().orElse("")}</label>
                                         </vbox>
                                         <button label="Удалить"
