@@ -1,4 +1,9 @@
-.delete-button {
+.delete-button, .delete-button:active {
+    background-color: #ff3b3b;
+}
+
+.delete-button:active, .delete-button:focus {
+    border-color: #FFA516;
     background-color: #ff3b3b;
 }
 
@@ -7,6 +12,10 @@
 }
 
 .add-button {
+    background-color: #00dd00;
+}
+.add-button:active, .add-button:focus {
+    border-color: #FFA516;
     background-color: #00dd00;
 }
 
