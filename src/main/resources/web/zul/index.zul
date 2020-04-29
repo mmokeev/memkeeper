@@ -1,7 +1,12 @@
 <zk>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
-    <style src="~./css/note.css" />
-    <style src="~./css/tab.css" />
+    <style src="~./css/add-tab.css"/>
+    <style src="~./css/add-note.css"/>
+    <style src="~./css/tab.css"/>
+    <style src="~./css/note.css"/>
+    <style src="~./css/buttons.css"/>
+    <style src="~./css/separators.css"/>
+    <style src="~./css/other.css"/>
     <window title="memkeeper" viewModel="@id('vm') @init('ru.memkeeper.viewmodels.MemkeeperViewModel')" >
         <tabbox id="mytabs">
             <tabs>
@@ -10,26 +15,30 @@
                          selected="@load(tab.isActive())"
                          onClick="@command('selectTab', tabIndex = tabStatus.index)"/>
                 </forEach>
-                <tab label="Добавить" selected="false" sclass="new-tab"/>
+                <tab label="Добавить" selected="false" sclass="new-tab" onClick="@command('selectNewTab')"/>
             </tabs>
             <tabpanels>
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
-                    <tabpanel>
+                    <tabpanel hflex="1">
                         <button label="Добавить заметку"
                                 onClick="@command('addNote', tabId = tab.id(), tabName = tab.name())"/>
                         <button label="Удалить вкладку"
-                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"/>
+                                onClick="@command('deleteTab', tabIndex = tabStatus.index)"
+                                sclass="delete-button"/>
+                        <separator bar="true" sclass="separator"/>
                         <if test="@load(tab.isActive())">
                             <forEach items="@load(vm.notes)" var="note" varStatus="noteStatus">
-                                <div sclass="note">
-                                    <hbox>
-                                        <vbox>
+                                <div sclass="note" hflex="1">
+                                    <hbox hflex="1">
+                                        <vbox hflex="1">
                                             <label sclass="title">${note.title()}</label>
-                                            <label sclass="created-at">${note.createdAt()}</label>
-                                            <div sclass="text">${note.text().orElse("")}</div>
+                                            <label sclass="created-at">${vm.formatDate(note.createdAt())}</label>
+                                            <label sclass="text" multiline="true">${note.text().orElse("")}</label>
                                         </vbox>
+                                        <space vflex="1" bar="true" sclass="space"/>
                                         <button label="Удалить"
-                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"/>
+                                                onClick="@command('deleteNote', tabId = tab.id(), noteId = note.id())"
+                                                sclass="delete-button"/>
                                     </hbox>
                                 </div>
                             </forEach>
@@ -37,20 +46,16 @@
                     </tabpanel>
                 </forEach>
                 <tabpanel>
-                    <grid>
-                        <columns>
-                            <column/>
-                            <column/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <label value="Название вкладки"/>
-                                <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
-                                         constraint="no empty, before_end"/>
-                            </row>
-                        </rows>
-                    </grid>
-                    <button label="Добавить" onClick="@command('addTab')"/>
+                    <if test="@load(vm.newTabSelected)">
+                        <hbox sclass="add-tab-body" align="center">
+                            <label value="Название вкладки" sclass="add-tab-label"/>
+                            <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
+                                     constraint="no empty, before_end"/>
+                        </hbox>
+                        <button label="Добавить"
+                                onClick="@command('addTab')"
+                                sclass="add-button"/>
+                    </if>
                 </tabpanel>
             </tabpanels>
         </tabbox>

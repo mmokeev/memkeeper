@@ -1,35 +1,41 @@
 <zk>
     <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
-    <window mode="modal" sizable="true" closable="true"
-            viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')">
-        <label value="@init(('Добавление заметки во вкладку &quot;' += vm.tabName += '&quot;'))"/>
-        <grid>
+    <window mode="modal" closable="true"
+            viewModel="@id('vm') @init('ru.memkeeper.viewmodels.AddNoteViewModel')"
+            sclass="add-note-window">
+        <label value="@init(('Добавление заметки во вкладку &quot;' += vm.tabName += '&quot;'))"
+               sclass="add-note-header"/>
+        <grid sclass="add-note-body">
             <columns>
-                <column/>
-                <column/>
+                <column width="95px" align="right"/>
+                <column hflex="1"/>
             </columns>
             <rows>
                 <row>
                     <label value="Заголовок"/>
                     <textbox value="@bind(vm.title) @save(vm.title, before = 'addNote')"
+                             width="99%"
+                             maxlength="255"
                              constraint="no empty, before_end"/>
                 </row>
                 <row>
                     <label value="Дата"/>
-                    <datebox format="yyyy/MM/dd hh:mm a"
+                    <datebox format="yyyy/MM/dd HH:mm"
                              value="@bind(vm.createdAt) @save(vm.createdAt, before = 'addNote')"
                              constraint="no empty, no future, before_end"/>
                 </row>
                 <row>
                     <label value="Текст"/>
                     <textbox rows="10"
-                             value="@bind(vm.text) @save(vm.text, before = 'addNote')"/>
+                             width="99%"
+                             value="@bind(vm.text) @save(vm.text, before = 'addNote')"
+                             sclass="add-note-text"/>
                 </row>
             </rows>
         </grid>
         <hbox>
             <button label="Отмена" onClick="@command('cancel')"/>
-            <button label="Добавить" onClick="@command('addNote')"/>
+            <button label="Добавить" onClick="@command('addNote')" sclass="add-button"/>
         </hbox>
     </window>
 </zk>

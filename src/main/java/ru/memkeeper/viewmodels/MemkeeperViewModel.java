@@ -14,12 +14,20 @@ import ru.memkeeper.services.MainPageService;
 import ru.memkeeper.services.NoteService;
 import ru.memkeeper.services.TabService;
 
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class MemkeeperViewModel {
 
     private static final String TEMP_USER_ID = "temp user id";
+    private static final String DELETE_TAB_WARNING_MESSAGE_PATTERN =
+            "Вы уверены, что хотите удалить вкладку \"%s\"? " +
+            "Вместе с вкладкой будут удалены все ее заметки.";
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     @WireVariable
     private TabService tabService;
@@ -34,6 +42,7 @@ public class MemkeeperViewModel {
     private List<NoteData> notes;
 
     private String newTabName;
+    private boolean newTabSelected;
 
     @Init
     public void init() {
@@ -44,12 +53,20 @@ public class MemkeeperViewModel {
         IntStream.range(0, tabs.size())
                 .filter(tabIndex -> tabs.get(tabIndex).isActive())
                 .findFirst()
-                .ifPresentOrElse(this::selectTab, () -> notes = Collections.emptyList());
+                .ifPresentOrElse(this::selectTab, () -> {
+                    newTabSelected = true;
+                    notes = Collections.emptyList();
+                });
+    }
+
+    public String formatDate(Date date) {
+        return dateFormat.format(date);
     }
 
     @Command
-    @NotifyChange({"tabs", "notes"})
+    @NotifyChange({"tabs", "notes", "newTabSelected"})
     public void selectTab(@BindingParam("tabIndex") int tabIndex) {
+        newTabSelected = false;
         loadNotesByTabId(tabs.get(tabIndex).id());
         tabs = mainController.getTabs(TEMP_USER_ID);
         //TODO: как-то обработать ситуацию, когда вкладка почему-то изменилась
@@ -60,10 +77,17 @@ public class MemkeeperViewModel {
     }
 
     @Command
+    @NotifyChange("newTabSelected")
+    public void selectNewTab() {
+        newTabSelected = true;
+    }
+
+    @Command
     public void deleteTab(@BindingParam("tabIndex") int tabIndex) {
         TabData tab = tabs.get(tabIndex);
-        Messagebox.show("Вы уверены, что хотите удалить вкладку \"" + tab.name() + "\"?", "Внимание!",
-                Messagebox.OK | Messagebox.NO, Messagebox.EXCLAMATION,
+        Messagebox.show(String.format(DELETE_TAB_WARNING_MESSAGE_PATTERN, tab.name()), "Внимание!",
+                new Messagebox.Button[]{Messagebox.Button.OK, Messagebox.Button.NO},
+                new String[] {"Да", "Нет"}, Messagebox.EXCLAMATION, null,
                 event -> {
                     if (Messagebox.ON_OK.equals(event.getName())) {
                         mainController.deleteTab(TEMP_USER_ID, tab.id());
@@ -126,5 +150,9 @@ public class MemkeeperViewModel {
 
     public void setNewTabName(String newTabName) {
         this.newTabName = newTabName;
+    }
+
+    public boolean isNewTabSelected() {
+        return newTabSelected;
     }
 }

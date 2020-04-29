@@ -1,0 +1,24 @@
+.delete-button, .delete-button:active {
+    background-color: #ff3b3b;
+}
+
+.delete-button:active, .delete-button:focus {
+    border-color: #FFA516;
+    background-color: #ff3b3b;
+}
+
+.delete-button:hover {
+    background-color: #ff7c7c;
+}
+
+.add-button {
+    background-color: #00dd00;
+}
+.add-button:active, .add-button:focus {
+    border-color: #FFA516;
+    background-color: #00dd00;
+}
+
+.add-button:hover {
+    background-color: #56ff56;
+}
