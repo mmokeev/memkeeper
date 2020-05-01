@@ -3,6 +3,8 @@ package ru.memkeeper.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.memkeeper.entities.Tab;
+import ru.memkeeper.entities.UserInfo;
+import ru.memkeeper.repositories.UserInfoRepository;
 import ru.memkeeper.services.internal.TabComponent;
 
 import java.util.List;
@@ -11,10 +13,12 @@ import java.util.List;
 public class TabService {
 
     private final TabComponent tabComponent;
+    private final UserInfoRepository userInfoRepository;
 
     @Autowired
-    public TabService(TabComponent tabComponent) {
+    public TabService(TabComponent tabComponent, UserInfoRepository userInfoRepository) {
         this.tabComponent = tabComponent;
+        this.userInfoRepository = userInfoRepository;
     }
 
     public Tab findTabAndMarkItAsActive(String userId, Long tabId) {
@@ -42,8 +46,19 @@ public class TabService {
     }
 
     private void createDefaultTabs(String userId) {
-        tabComponent.createNewTab(userId, "Фильмы", true);
-        tabComponent.createNewTab(userId, "Книги", false);
-        tabComponent.createNewTab(userId, "Видосики", false);
+
+        UserInfo userInfo = userInfoRepository.findByUserId(userId).orElseGet(() -> {
+            UserInfo defaultUserInfo = new UserInfo();
+            defaultUserInfo.setUserId(userId);
+            defaultUserInfo.setCreateDefaultTabs(true);
+            return defaultUserInfo;
+        });
+        if (userInfo.getCreateDefaultTabs()) {
+            tabComponent.createNewTab(userId, "Фильмы", true);
+            tabComponent.createNewTab(userId, "Книги", false);
+            tabComponent.createNewTab(userId, "Видосики", false);
+        }
+        userInfo.setCreateDefaultTabs(false);
+        userInfoRepository.saveAndFlush(userInfo);
     }
 }

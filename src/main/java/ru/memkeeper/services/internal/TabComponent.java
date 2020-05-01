@@ -36,7 +36,8 @@ public class TabComponent {
 
     @Transactional
     public void deleteTab(String userId, Long tabId) {
-        tabsRepository.deleteByUserIdAndTabId(userId, tabId);
+        Tab tab = findTab(userId, tabId);
+        tabsRepository.delete(tab);
     }
 
     @Transactional

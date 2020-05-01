@@ -20,7 +20,7 @@ public class Note {
     @Column(name = "created_at", nullable = false)
     private Date createdAt = new Date();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Tab tab;
 
     @Column(name = "title", nullable = false)
