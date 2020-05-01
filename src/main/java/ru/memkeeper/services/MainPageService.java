@@ -18,7 +18,7 @@ public class MainPageService {
 
     public List<Note> findNotes(String userId, Long tabId) {
         List<Note> notes = tabService.findTabAndMarkItAsActive(userId, tabId).getNotes();
-        notes.sort(Comparator.comparing(Note::getCreatedAt));
+        notes.sort(Comparator.comparing(Note::getCreatedAt).reversed());
         return notes;
     }
 }
