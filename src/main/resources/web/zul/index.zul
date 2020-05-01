@@ -15,7 +15,7 @@
                          selected="@load(tab.isActive())"
                          onClick="@command('selectTab', tabIndex = tabStatus.index)"/>
                 </forEach>
-                <tab label="Добавить" selected="false" sclass="new-tab" onClick="@command('selectNewTab')"/>
+                <tab label="Добавить" selected="@load(vm.newTabSelected)" sclass="new-tab" onClick="@command('selectNewTab')"/>
             </tabs>
             <tabpanels>
                 <forEach items="@load(vm.tabs)" var="tab" varStatus="tabStatus">
