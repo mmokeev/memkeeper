@@ -96,8 +96,11 @@ public class MemkeeperViewModel {
                             int newTabIndex = tabIndex < tabs.size() ? tabIndex : tabIndex - 1;
                             loadNotesByTabId(tabs.get(newTabIndex).id());
                             tabs = mainController.getTabs(TEMP_USER_ID);
-                            BindUtils.postNotifyChange(null, null, this, "tabs", "notes");
+                        } else {
+                            newTabSelected = true;
+                            notes = Collections.emptyList();
                         }
+                        BindUtils.postNotifyChange(null, null, this, "tabs", "notes", "newTabSelected");
                     }
                 });
     }
