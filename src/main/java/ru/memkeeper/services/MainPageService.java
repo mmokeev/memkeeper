@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.memkeeper.entities.Note;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -16,6 +17,8 @@ public class MainPageService {
     }
 
     public List<Note> findNotes(String userId, Long tabId) {
-        return tabService.findTabAndMarkItAsActive(userId, tabId).getNotes();
+        List<Note> notes = tabService.findTabAndMarkItAsActive(userId, tabId).getNotes();
+        notes.sort(Comparator.comparing(Note::getCreatedAt));
+        return notes;
     }
 }

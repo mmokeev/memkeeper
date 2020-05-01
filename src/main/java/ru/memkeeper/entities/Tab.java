@@ -23,7 +23,7 @@ public class Tab {
     @Column(name = "is_active")
     private Boolean isActive = false;
 
-    @OneToMany(mappedBy = "tab", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tab", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Note> notes = Collections.emptyList();
 
     public String getName() {
