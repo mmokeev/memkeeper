@@ -50,6 +50,7 @@
                         <hbox sclass="add-tab-body" align="center">
                             <label value="Название вкладки" sclass="add-tab-label"/>
                             <textbox value="@bind(vm.newTabName) @save(vm.newTabName, before = 'addTab')"
+                                     maxlength="30"
                                      constraint="no empty, before_end"/>
                         </hbox>
                         <button label="Добавить"
